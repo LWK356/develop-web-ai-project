@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequestMapping("/depts")
 @RestController//@Controller+@ResponseBody(直接将方法的返回值直接作为响应数据响应给前端\
 //如果是一个对象或者一个集合先转成json，转成json后再响应给前端 ）
 
@@ -22,11 +23,20 @@ public class DeptController {
 
 
 
-    @GetMapping("depts") //等于上面的 @RequestMapping
+    @GetMapping //等于上面的 @RequestMapping
     public Result list(){
         System.out.println("查询全部部门的数据");
         List<Dept> deptlist = deptService.findAll();
         return Result.success(deptlist);
+    }
+
+    @GetMapping("/{id}")
+    public Result getById(@PathVariable Integer id) {
+        Dept dept = deptService.getById(id);
+        if (dept == null) {
+            return Result.error("部门不存在");
+        }
+        return Result.success(dept);
     }
 
     /*
@@ -56,7 +66,7 @@ public class DeptController {
 
     //删除方式三：省略@RequestParam（前端传递的请求参数名与服务端形参名称一致）[推荐]
 
-    @DeleteMapping("depts")
+    @DeleteMapping
     //@RequestParam("id")会接受前端请求的id参数，然后将id的值赋给id变量
     public Result delete(Integer id){//required = false就可以不传递参数
         System.out.println("删除部门id为："+id);
@@ -70,7 +80,7 @@ public class DeptController {
 
     //添加
     // @RequestBody：将请求体中的json数据转换成Java对象【请求体中的数据必须是json格式的】
-    @PostMapping("depts")
+    @PostMapping
     public Result add(@RequestBody Dept dept){
         if (dept == null || dept.getName() == null || dept.getName().isBlank()) {
             return Result.error("部门名称不能为空");
@@ -91,9 +101,10 @@ public class DeptController {
     /*
     * 根据id修改部门数据
     * */
-    @PutMapping("depts")
+    @PutMapping
+    //@RequestBody使返回的对象是json格式
     public Result update(@RequestBody Dept dept){
-        System.out.println("修改部门");
+        System.out.println("修改部门"+dept);
         deptService.update(dept);
         return Result.success();
     }

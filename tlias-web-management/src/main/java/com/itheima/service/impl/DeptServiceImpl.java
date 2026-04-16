@@ -21,6 +21,11 @@ public class DeptServiceImpl implements DeptService {
     }
 
     @Override
+    public Dept getById(Integer id) {
+        return deptMapper.getById(id);
+    }
+
+    @Override
     public void deleteById(Integer id) {
         deptMapper.deleteById(id);
     }
@@ -35,8 +40,10 @@ public class DeptServiceImpl implements DeptService {
 
     @Override
     public void update(Dept dept) {
+        //1.补全基础属性-updateTime
         LocalDateTime now = LocalDateTime.now();
         dept.setUpdateTime(now);
+        //调用Mapper接口方法更新部门
         deptMapper.update(dept);
     }
 

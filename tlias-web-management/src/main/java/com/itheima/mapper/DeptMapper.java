@@ -18,8 +18,11 @@ public interface DeptMapper {
     //方式二：使用@MapKey  起别名
 //    @Select("select id, name, create_time createTime, update_time updateTime from dept order by update_time desc")
     @Select("select id, name, create_time, update_time from dept order by update_time desc")
-
     List<Dept> findAll();
+
+
+    @Select("select id, name, create_time, update_time from dept where id = #{id}")
+    Dept getById(Integer id);
 
 
     @Delete("delete from dept where id = #{id}")
