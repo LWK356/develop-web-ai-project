@@ -28,6 +28,10 @@ public class LogTest {
 //        System.out.println("计算结果为: "+sum);
 //        System.out.println(LocalDateTime.now() + "结束计算...");
         log.debug("end");
+        log.trace("tarce");
+        log.warn("warn...");
+        log.error("error...");
+
     }
 
 }
