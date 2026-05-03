@@ -48,7 +48,7 @@ public class DeptController {
     * */
 
 //     方式一：通过原始的HttpServletRequest对象获取请求参数
-//     繁琐，在真是的企业中用得不多
+//     繁琐，在真实的企业中用得不多
 //    @DeleteMapping("depts")
 //    public Result delete(Integer id){
 //        System.out.println("删除部门id为："+id);
